@@ -1,0 +1,106 @@
+import React, { useEffect } from 'react';
+import { View, Platform, BackHandler } from 'react-native';
+import { FileDownloaderStyles as styles } from '../Styles';
+import { FileManager } from '../file-system/FileManager';
+import * as Autentication from 'expo-local-authentication';
+
+const Home = () => {
+  const hasHardware = async () => {
+    const platform = Platform.OS === 'android' ? true : false;
+    const hardware = await Autentication.hasHardwareAsync();
+    if (hardware) {
+      /*const supportedTypes = await Autentication.supportedAuthenticationTypesAsync();
+      console.log(supportedTypes);
+      1 for finger
+      2 for face
+      3 for iris
+      const savedData = await Autentication.isEnrolledAsync();
+      console.log(savedData);
+      const enrolledLevel = await Autentication.getEnrolledLevelAsync();
+      console.log(enrolledLevel);
+      */
+      if (platform) {
+        const response = await Autentication.authenticateAsync({ promptMessage: "Finger", cancelLabel: 'Cancel', disableDeviceFallback: false });
+        if (response.error) {
+          BackHandler.exitApp();
+        }
+        if
+      }
+      else {
+        const response = await Autentication.authenticateAsync({ promptMessage: "Finger", fallbackLabel: 'Use Password', cancelLabel: 'Cancel', disableDeviceFallback: false });
+        if (response.error) {
+          BackHandler.exitApp();
+        }
+      }
+    }
+    else {
+      alert("Not supported.Use app security instead.");
+    }
+  }
+  useEffect(() => {
+    hasHardware();
+  }, [])
+  return (
+    <View style={styles.container}>
+      <FileManager />
+    </View>
+  );
+};
+export default Home;
+
+
+/*
+
+const [path,setPath] = useState("");
+    const [arr,setArr] = useState([])
+    const start=async()=>{
+
+        const callback = downloadProgress => {
+            const progress = downloadProgress.totalBytesWritten / downloadProgress.totalBytesExpectedToWrite;
+            console.log(progress)
+          };
+
+        const downloadResumable = FileSystems.createDownloadResumable(
+            "https://i.ytimg.com/vi/J68tZ3Du7uY/maxresdefault.jpg",
+            FileSystem.documentDirectory + "temporary-file",
+            {},
+            callback
+          );
+          try {
+            const { uri } = await downloadResumable.downloadAsync().then((item) => {
+              return item;
+            });
+            setPath(uri)
+            arrayCheck(arr,uri)
+          } catch (e) {
+            console.error(e);
+          }
+    }
+    const arrayCheck=(array,obj)=>{
+        const arrayList = [...array];
+        if(arrayList.length > 0){
+            if(!arrayList.includes(obj)){
+                setArr([...arrayList,obj]);
+            }
+        }
+        else{
+            setArr([...arrayList,obj]);
+        }
+    }
+    useEffect(()=>{
+        console.log(arr);
+    },[arr])
+    useEffect(()=>{
+        start()
+    },[])
+
+
+
+    <CircularProgress
+  value={85}
+  inActiveStrokeColor={'#2ecc71'}
+  inActiveStrokeOpacity={0.2}
+  textColor={'#fff'}
+  valueSuffix={'%'}
+/>
+*/
