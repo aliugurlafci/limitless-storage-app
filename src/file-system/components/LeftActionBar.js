@@ -100,11 +100,11 @@ export function LeftActionBar({ leftMenuClickHandler, disabledProp }) {
                     <Icon name="save" family="AntDesign" size={25} color={theme.textColor} />
                     <Text style={styles.menuText}>Save</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={disabledProp.disabled ? [styles.menuItems, styles.disabled] : styles.menuItems} onPress={() => leftMenuClickHandler(6)} {...disabledProp}>
+                <TouchableOpacity style={styles.menuItems} onPress={() => leftMenuClickHandler(6)} >
                     <Icon name="setting" family="AntDesign" size={25} color={theme.textColor} />
                     <Text style={styles.menuText}>Setting</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={disabledProp.disabled ? [styles.menuItems, styles.disabled] : styles.menuItems} onPress={() => leftMenuClickHandler(7)} {...disabledProp}>
+                <TouchableOpacity style={styles.menuItems} onPress={() => leftMenuClickHandler(7)} >
                     <Icon name="download" family="AntDesign" size={25} color={theme.textColor} />
                     <Text style={styles.menuText}>Download</Text>
                 </TouchableOpacity>

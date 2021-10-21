@@ -24,7 +24,6 @@ const Home = () => {
         if (response.error) {
           BackHandler.exitApp();
         }
-        if
       }
       else {
         const response = await Autentication.authenticateAsync({ promptMessage: "Finger", fallbackLabel: 'Use Password', cancelLabel: 'Cancel', disableDeviceFallback: false });
