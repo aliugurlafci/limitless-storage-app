@@ -6,6 +6,7 @@ import { Toast } from './components/Toast';
 import { Popover } from './components/Popover';
 import { MiniFileModal } from './components/MiniFileModal';
 import { SettingsModal } from './components/SettingsModal';
+import { EntryRejected } from './components/EntryRejected';
 
 export {
     Navbar,
@@ -15,5 +16,6 @@ export {
     Toast,
     Popover,
     MiniFileModal,
-    SettingsModal
+    SettingsModal,
+    EntryRejected,
 }

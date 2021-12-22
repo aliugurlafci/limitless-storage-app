@@ -1,51 +1,96 @@
-import React, { useEffect } from 'react';
-import { View, Platform, BackHandler } from 'react-native';
-import { FileDownloaderStyles as styles } from '../Styles';
+import React, { useEffect, useState } from 'react';
+import { View, BackHandler } from 'react-native';
+import { FileDownloaderStyles as styles, platform } from '../Styles';
 import { FileManager } from '../file-system/FileManager';
+import { EntryRejected } from '../file-system/index';
+import * as SecureStore from 'expo-secure-store';
+import * as Api from '../global/Api';
 import * as Autentication from 'expo-local-authentication';
+import RNExitApp from 'react-native-exit-app';
 
-const Home = () => {
+export const Home = () => {
+
+  const [isAutenticated, setIsAutenticated] = useState(true);
+
+
+  const exitApplication = () => {
+    if (platform) {
+      BackHandler.exitApp();
+    }
+    else {
+      RNExitApp.exitApp();
+    }
+  }
+  const registerUUID = async () => {
+
+    let fetchUUID = await SecureStore.getItemAsync('secure_deviceid');
+    if (fetchUUID === null) {
+      let uid = await Api.getUserUUID();
+      await SecureStore.setItemAsync('secure_deviceid', JSON.stringify(uid));
+    }
+    const date = new Date();
+    const day = date.getDay();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const startDate = day + "/" + month + "/" + year;
+    const endDate = day + "/" + (month + 1) + "/" + year;
+
+    let registerState = await Api.createUser(uid, "user-" + uid, 1, startDate, endDate, 1, 1, 102400);
+    if (registerState === 'YES') {
+      alert("Register as ananymos user has created.You have 100MB free disk space to use.");
+    }
+    else {
+      alert("Register unsuccessfull");
+    }
+  }
   const hasHardware = async () => {
-    const platform = Platform.OS === 'android' ? true : false;
-    const hardware = await Autentication.hasHardwareAsync();
-    if (hardware) {
-      /*const supportedTypes = await Autentication.supportedAuthenticationTypesAsync();
-      console.log(supportedTypes);
-      1 for finger
-      2 for face
-      3 for iris
-      const savedData = await Autentication.isEnrolledAsync();
-      console.log(savedData);
-      const enrolledLevel = await Autentication.getEnrolledLevelAsync();
-      console.log(enrolledLevel);
-      */
-      if (platform) {
-        const response = await Autentication.authenticateAsync({ promptMessage: "Finger", cancelLabel: 'Cancel', disableDeviceFallback: false });
-        if (response.error) {
-          BackHandler.exitApp();
+    try {
+      const hardware = await Autentication.hasHardwareAsync();
+      if (hardware) {
+        if (platform) {
+          const response = await Autentication.authenticateAsync({ promptMessage: "Finger", cancelLabel: 'Cancel', disableDeviceFallback: false });
+          if (response.success) {
+            setIsAutenticated(true);
+          }
+          else {
+            exitApplication();
+          }
+        }
+        else {
+          const response = await Autentication.authenticateAsync({ promptMessage: "Finger", fallbackLabel: 'Use Password', cancelLabel: 'Cancel', disableDeviceFallback: false });
+          if (response.success) {
+            setIsAutenticated(true);
+          }
+          else {
+            exitApplication();
+          }
         }
       }
       else {
-        const response = await Autentication.authenticateAsync({ promptMessage: "Finger", fallbackLabel: 'Use Password', cancelLabel: 'Cancel', disableDeviceFallback: false });
-        if (response.error) {
-          BackHandler.exitApp();
-        }
+        alert("Not supported.Use app security instead.");
       }
     }
-    else {
-      alert("Not supported.Use app security instead.");
-    }
+    catch { }
   }
   useEffect(() => {
-    hasHardware();
+    //hasHardware();
+    //registerUUID();
   }, [])
-  return (
-    <View style={styles.container}>
-      <FileManager />
-    </View>
-  );
+  if (isAutenticated) {
+    return (
+      <View style={styles.container}>
+        <FileManager />
+      </View>
+    );
+  }
+  else {
+    return (
+      <View style={styles.container}>
+        <EntryRejected tryAgain={hasHardware} />
+      </View>
+    );
+  }
 };
-export default Home;
 
 
 /*

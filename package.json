@@ -1,4 +1,6 @@
 {
+  "name": "limitless-storage-app",
+  "version": "1.0.0",
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -8,31 +10,36 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-async-storage/async-storage": "^1.15.9",
+    "@react-native-async-storage/async-storage": "~1.15.0",
     "@react-native-community/picker": "^1.8.1",
-    "axios": "^0.23.0",
-    "expo": "~42.0.1",
-    "expo-constants": "^11.0.1",
-    "expo-local-authentication": "~11.1.1",
-    "expo-media-library": "~12.1.2",
-    "expo-permissions": "~12.1.1",
-    "expo-status-bar": "~1.0.4",
+    "axios": "^0.24.0",
+    "expo": "~44.0.0",
+    "expo-constants": "~13.0.0",
+    "expo-local-authentication": "~12.1.0",
+    "expo-media-library": "~14.0.0",
+    "expo-permissions": "~13.1.0",
+    "expo-secure-store": "~11.1.0",
+    "expo-status-bar": "~1.2.0",
     "galio-framework": "^0.8.0",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-42.0.0.tar.gz",
+    "lottie-ios": "^3.2.3",
+    "lottie-react-native": "5.0.1",
+    "react": "17.0.1",
+    "react-dom": "17.0.1",
+    "react-native": "0.64.3",
     "react-native-animated-component": "^0.2.0",
-    "react-native-circular-progress-indicator": "^2.0.2",
+    "react-native-circular-progress-indicator": "^2.0.5",
     "react-native-elements": "^3.4.2",
-    "react-native-gesture-handler": "^1.10.3",
-    "react-native-reanimated": "^2.2.3",
-    "react-native-svg": "^12.1.1",
-    "react-native-ui-lib": "^6.2.0",
-    "react-native-vector-icons": "^8.1.0",
-    "react-native-web": "~0.13.12"
+    "react-native-exit-app": "^1.1.0",
+    "react-native-gesture-handler": "~2.1.0",
+    "react-native-reanimated": "~2.3.1",
+    "react-native-safe-area-context": "3.3.2",
+    "react-native-svg": "12.1.1",
+    "react-native-ui-lib": "^6.6.1",
+    "react-native-vector-icons": "^9.0.0",
+    "react-native-web": "0.17.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.12.9"
   },
   "private": true
 }

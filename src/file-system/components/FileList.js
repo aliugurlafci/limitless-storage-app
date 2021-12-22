@@ -3,6 +3,8 @@ import { View, Animated, Easing, TouchableOpacity, RefreshControl, FlatList } fr
 import { Icon, Button } from 'galio-framework';
 import { Tooltip, Text } from 'react-native-elements';
 import * as FileSystems from 'expo-file-system';
+import * as MediaLibrry from 'expo-media-library';
+import * as ext from '../../global/Extensions';
 import { FileDownloaderStyles as styles, width, height, theme } from '../../Styles';
 
 export function FileList({
@@ -74,6 +76,36 @@ export function FileList({
         );
         fileTooltips.current[index].toggleTooltip();
     }
+    const extensionHandler = (extension) => {
+        switch (fileExtension) {
+            case '.txt':
+                return ext.txtBase64;
+            case '.rtf':
+                return ext.rftBase64;
+            case '.xml':
+                return ext.xmlBase64;
+            case '.pdf':
+                return ext.pdfBase64;
+            case '.pptx':
+                return ext.pptxBase256;
+            case '.js':
+                return ext.jsBase64;
+            case '.rar':
+                return ext.rarBase64;
+            case '.zip':
+                return ext.rarBase64;
+            case '.xlxs':
+                return ext.excelBase64;
+            case '.docx':
+                return ext.docBase64;
+            case '.md':
+                return ext.txtBase64;
+            case '.exe':
+                return ext.exeBase64;
+            default:
+                return ext.unknownFileBase64;
+        }
+    }
     useEffect(() => {
         if (fileArray.length === 0 || selectedFileList.length === 0) {
             hide.start();
@@ -84,8 +116,10 @@ export function FileList({
             hide.start();
         }
     }, [selectedFileList]);
+
     const renderFileItems = ({ item }) => {
         const index = fileArray.indexOf(item);
+
         if (viewMode === 'single') {
             return (
                 <View style={[styles.folderListItem, { width: width / countPerRow, marginRight: -countPerRow }, selectedFileList.includes(index) ? styles.selectedListItem : null]} key={"object-" + index}>
@@ -186,4 +220,14 @@ export function FileList({
             </Animated.View>
         </>
     );
+}
+
+const saveFile = async () => {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    if (status === "granted") {
+        let fileUri = FileSystem.documentDirectory + "text.txt";
+        await FileSystem.writeAsStringAsync(fileUri, "Hello World", { encoding: FileSystem.EncodingType.UTF8 });
+        const asset = await MediaLibrary.createAssetAsync(fileUri)
+        await MediaLibrary.createAlbumAsync("Download", asset, false)
+    }
 }

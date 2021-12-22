@@ -2,6 +2,8 @@ import { StyleSheet, Dimensions, Platform } from 'react-native';
 
 export const { width, height } = Dimensions.get("window");
 
+export const platform = Platform.OS === "android" ? true : false;
+
 export const theme = {
     accent: '#ff5722',
     textColor: '#ffffff',
@@ -16,8 +18,19 @@ export const theme = {
     shadowColor: '#888888',
     folderOutlineSelected: '#ffffff'
 }
-const platform = Platform.OS === 'android' ? true : false;
 
+export const SplashStyles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: theme.backgroundColor
+    },
+    lottie: {
+        width: width,
+        height: height * 0.5
+    }
+});
 export const FileDownloaderStyles = StyleSheet.create({
     container: {
         width: width,
@@ -43,7 +56,7 @@ export const FileDownloaderStyles = StyleSheet.create({
     },
     leftMenu: {
         width: 50,
-        height: platform ? height-50 : height - 72,
+        height: platform ? height - 50 : height - 72,
         backgroundColor: theme.backgroundColor,
         flexDirection: 'column',
         justifyContent: 'space-evenly',
@@ -304,5 +317,75 @@ export const MiniFileModal = StyleSheet.create({
     textBold: {
         fontSize: 15,
         fontWeight: 'bold'
+    }
+});
+export const EntryRejectedStyles = StyleSheet.create({
+    container: {
+        width: width,
+        height: height,
+        backgroundColor: theme.backgroundColor,
+        alignItems: 'center',
+    },
+    top: {
+        width: width - 25,
+        height: height * 0.25,
+    },
+    bottom: {
+        width: width - 25,
+        height: height * 0.70,
+        alignItems: 'center',
+        justifyContent: 'flex-end'
+    },
+    visualPassword: {
+        width: width / 2,
+        height: '20%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginBottom: 25
+    },
+    row: {
+        width: width / 2,
+        flexDirection: 'row',
+        justifyContent: 'center'
+    },
+    dots: {
+        fontSize: 80,
+        marginRight: 5,
+        marginBottom: 12
+    },
+    touchable: {
+        width: 50,
+        height: 50,
+        alignItems: 'center'
+    },
+    numberPad: {
+        width: width,
+        height: '80%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginBottom: -height * 0.1
+    },
+    numbers: {
+        width: width / 3,
+        height: (width - 25) / 4,
+        alignItems: 'center',
+    },
+    numberText: {
+        fontSize: 26,
+        color: theme.textColor
+    },
+    text: {
+        color: theme.textColor,
+        fontSize: 16,
+        marginBottom: -40
+    },
+    shadow: {
+        backgroundColor: theme.backgroundColor,
+        borderRadius: 12,
+        shadowColor: theme.black,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.8,
+        shadowRadius: 2,
+        elevation: 5,
     }
 });

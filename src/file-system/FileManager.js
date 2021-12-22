@@ -168,7 +168,9 @@ export function FileManager() {
         }
       } break;
       case 5: { alert("5") } break;
-      case 6: { alert("6") } break;
+      case 6: {
+        setShowModal({ nameModal: false, miniFileModal: false, renameModal: false, settingModal: true });
+      } break;
       case 7: { alert("7") } break;
       case 8: { alert("8") } break;
     }
