@@ -16,25 +16,29 @@ export async function getUserUUID() {
 
 export async function createUser(ukey, root, plan, startDate, endDate, billState, collectionId, capacity) {
 
-    const formData = new FormData();
+    try {
+        const formData = new FormData();
 
-    const data = {
-        "UserKey": ukey,
-        "UserFolder": root,
-        "UserPlan": plan,
-        "UserPlanStartDate": startDate,
-        "UserPlanEndDate": endDate,
-        "UserBillState": billState,
-        "UserCurrentCapacity": capacity,
-        "UserCollectionId": collectionId
+        const data = {
+            "UserKey": ukey,
+            "UserFolder": root,
+            "UserPlan": plan,
+            "UserPlanStartDate": startDate,
+            "UserPlanEndDate": endDate,
+            "UserBillState": billState,
+            "UserCurrentCapacity": capacity,
+            "UserCollectionId": collectionId
+        }
+
+        formData.append("user-data", JSON.stringify(data));
+
+        const path = "http://limitlessstorage.somee.com/api/user/register";
+        const response = await axios.post(path, formData, {
+            headers: { "Content-Type": "application/json" }
+        });
+        return 'YES';
     }
-
-    formData.append("user-data", JSON.stringify(data));
-
-    const path = "http://limitlessstorage.somee.com/api/user/register";
-    const response = await axios.post(path, formData, {
-        headers: { "Content-Type": "application/json" }
-    });
-    console.log(response.data);
-    return 'YES';
+    catch (err) {
+        return 'NO';
+    }
 }

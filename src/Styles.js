@@ -22,13 +22,13 @@ export const theme = {
 export const SplashStyles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: theme.white,
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: theme.backgroundColor
+        alignItems: 'center'
     },
     lottie: {
         width: width,
-        height: height * 0.5
+        height: height * 0.5,
     }
 });
 export const FileDownloaderStyles = StyleSheet.create({
@@ -174,7 +174,95 @@ export const FileDownloaderStyles = StyleSheet.create({
         textAlign: 'center'
     },
 });
-
+export const OpeningPartitialStyles = StyleSheet.create({
+    container: {
+        width: width,
+        height: height,
+        backgroundColor: theme.backgroundColor,
+        alignItems: 'center',
+    },
+    bigText: {
+        color: theme.textColor,
+        fontSize: 18,
+        textAlign: 'center',
+        width: width - 50,
+        fontWeight: 'bold'
+    },
+    smallText: {
+        color: theme.textColor,
+        fontSize: 14,
+        textAlign: 'center',
+        width: width - 50
+    },
+    listText: {
+        color: theme.textColor,
+        fontSize: 12,
+        textAlign: 'center',
+        marginBottom: 6,
+        fontWeight: 'bold',
+        marginTop: 5
+    },
+    smallListText: {
+        color: theme.textColor,
+        fontSize: 10,
+        textAlign: 'center',
+    },
+    lottie: {
+        width: width,
+        height: height * 0.5,
+        backgroundColor: 'transparent'
+    },
+    absolute: {
+        position: 'absolute',
+        bottom: platform ? 10 : 10,
+        width: width,
+        height: 80,
+        flexDirection: 'row'
+    },
+    pageControl: {
+        flexDirection: 'row',
+        width: 100,
+        justifyContent: 'center',
+        position: 'relative',
+        zIndex: 10
+    },
+    controlDots: {
+        fontSize: platform ? 50 : 70,
+        padding: 5,
+        color: theme.accent,
+        marginRight: -4,
+    },
+    nextContainer: {
+        width: width - 120,
+        alignSelf: 'flex-end',
+        alignItems: 'flex-end',
+    },
+    nextButton: {
+        borderRadius: 100,
+        width: 55,
+        height: 55,
+        backgroundColor: theme.accent,
+    },
+    nextButtonTitle: {
+        textAlign: 'center',
+        fontSize: 13
+    },
+    nextButtonIcon: {
+        fontSize: 14
+    },
+    header: {
+        justifyContent: 'center',
+        alignSelf: 'center',
+        marginTop: platform ? 50 : 40,
+        marginBottom: platform ? 25 : 15
+    },
+    items: {
+        width: (width - 40) / 2,
+        alignItems: 'center',
+        margin: 6,
+        marginBottom: platform ? 24 : 0
+    },
+});
 export const RenameModalStyles = StyleSheet.create({
     overlay: {
         width: width - 80,
@@ -351,12 +439,14 @@ export const EntryRejectedStyles = StyleSheet.create({
     dots: {
         fontSize: 80,
         marginRight: 5,
-        marginBottom: 12
+        marginBottom: 12,
+        color: theme.accent
     },
     touchable: {
-        width: 50,
-        height: 50,
-        alignItems: 'center'
+        width: 70,
+        height: 70,
+        alignItems: 'center',
+        borderRadius: 100
     },
     numberPad: {
         width: width,
@@ -377,7 +467,9 @@ export const EntryRejectedStyles = StyleSheet.create({
     text: {
         color: theme.textColor,
         fontSize: 16,
-        marginBottom: -40
+        marginBottom: -40,
+        textAlign: 'center',
+        width: width - 100
     },
     shadow: {
         backgroundColor: theme.backgroundColor,

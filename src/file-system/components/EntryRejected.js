@@ -61,12 +61,12 @@ export function EntryRejected({ tryAgain }) {
                 <View style={styles.visualPassword}>
                     <Text style={styles.text}>Touch ID or enter pin code</Text>
                     <View style={styles.row}>
-                        <Text style={[styles.dots, { color: password.length >= 1 ? theme.textColor : theme.shadowColor }]}>.</Text>
-                        <Text style={[styles.dots, { color: password.length >= 2 ? theme.textColor : theme.shadowColor }]}>.</Text>
-                        <Text style={[styles.dots, { color: password.length >= 3 ? theme.textColor : theme.shadowColor }]}>.</Text>
-                        <Text style={[styles.dots, { color: password.length >= 4 ? theme.textColor : theme.shadowColor }]}>.</Text>
-                        <Text style={[styles.dots, { color: password.length >= 5 ? theme.textColor : theme.shadowColor }]}>.</Text>
-                        <Text style={[styles.dots, { color: password.length >= 6 ? theme.textColor : theme.shadowColor }]}>.</Text>
+                        <Text style={[styles.dots, { opacity: password.length >= 1 ? 1 : 0.3 }]}>.</Text>
+                        <Text style={[styles.dots, { opacity: password.length >= 2 ? 1 : 0.3 }]}>.</Text>
+                        <Text style={[styles.dots, { opacity: password.length >= 3 ? 1 : 0.3 }]}>.</Text>
+                        <Text style={[styles.dots, { opacity: password.length >= 4 ? 1 : 0.3 }]}>.</Text>
+                        <Text style={[styles.dots, { opacity: password.length >= 5 ? 1 : 0.3 }]}>.</Text>
+                        <Text style={[styles.dots, { opacity: password.length >= 6 ? 1 : 0.3 }]}>.</Text>
                     </View>
                 </View>
                 <View style={styles.numberPad}>

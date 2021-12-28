@@ -3,14 +3,12 @@ import { View, BackHandler } from 'react-native';
 import { FileDownloaderStyles as styles, platform } from '../Styles';
 import { FileManager } from '../file-system/FileManager';
 import { EntryRejected } from '../file-system/index';
-import * as SecureStore from 'expo-secure-store';
-import * as Api from '../global/Api';
 import * as Autentication from 'expo-local-authentication';
 import RNExitApp from 'react-native-exit-app';
 
-export const Home = () => {
+export const Home = ({ uuid }) => {
 
-  const [isAutenticated, setIsAutenticated] = useState(true);
+  const [isAutenticated, setIsAutenticated] = useState(false);
 
 
   const exitApplication = () => {
@@ -19,28 +17,6 @@ export const Home = () => {
     }
     else {
       RNExitApp.exitApp();
-    }
-  }
-  const registerUUID = async () => {
-
-    let fetchUUID = await SecureStore.getItemAsync('secure_deviceid');
-    if (fetchUUID === null) {
-      let uid = await Api.getUserUUID();
-      await SecureStore.setItemAsync('secure_deviceid', JSON.stringify(uid));
-    }
-    const date = new Date();
-    const day = date.getDay();
-    const month = date.getMonth() + 1;
-    const year = date.getFullYear();
-    const startDate = day + "/" + month + "/" + year;
-    const endDate = day + "/" + (month + 1) + "/" + year;
-
-    let registerState = await Api.createUser(uid, "user-" + uid, 1, startDate, endDate, 1, 1, 102400);
-    if (registerState === 'YES') {
-      alert("Register as ananymos user has created.You have 100MB free disk space to use.");
-    }
-    else {
-      alert("Register unsuccessfull");
     }
   }
   const hasHardware = async () => {
@@ -73,9 +49,14 @@ export const Home = () => {
     catch { }
   }
   useEffect(() => {
-    //hasHardware();
-    //registerUUID();
-  }, [])
+    console.log(uuid);
+    /*if (uuid.register) {
+      alert("You have succesfull");
+    }
+    else {
+      alert("You have error");
+    }*/
+  }, []);
   if (isAutenticated) {
     return (
       <View style={styles.container}>

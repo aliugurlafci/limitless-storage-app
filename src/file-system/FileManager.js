@@ -133,7 +133,6 @@ export function FileManager() {
       return arrayList
     }
   };
-
   const leftMenuClickHandler = (index) => {
     switch (index) {
       case 0: { setShowModal({ nameModal: !showModal.nameModal, miniFileModal: false, renameModal: false, settingModal: false }); } break;
@@ -265,11 +264,9 @@ export function FileManager() {
     rootConstructor();
     loadFileArray(rootPath);
   }, []);
-
   useEffect(() => {
     getFilesInfo();
   }, [fileArray]);
-
   useEffect(() => {
     if (refreshFileList) {
       loadFileArray(fileExplorer[fileExplorer.length - 1]);
